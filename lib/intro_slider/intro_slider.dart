@@ -1,4 +1,5 @@
-import 'package:empire_lrp_helper/Themes/themes.dart';
+import 'package:empire_lrp_helper/intro_slider/viewmodel/intro_slider_viewmodel.dart';
+import 'package:empire_lrp_helper/main_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 
@@ -12,6 +13,7 @@ class IntroSliderScreen extends StatefulWidget {
 }
 
 class _IntroSliderScreenState extends State<IntroSliderScreen> {
+  late IntroSliderViewModel viewModel;
   bool wintermarkSelected = false;
   bool dawnSelected = false;
   List<ContentConfig> listContentConfig = [];
@@ -21,12 +23,14 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
     // TODO: implement initState
     super.initState();
 
+    viewModel = IntroSliderViewModel();
+
     listContentConfig.add(
       const ContentConfig(
         title: "Welcome!",
         description:
             "Welcome and thank you for supporting the un-official Empire Larp helper app",
-        pathImage: "assets/Evrom.png",
+        pathImage: "assets/runes/Evrom.png",
         backgroundColor: Color(0xff881A72),
       ),
     );
@@ -35,7 +39,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
         title: "An app for you!",
         description:
             "I hope this app is to your liking, its goal is to be a quick cheat sheet and study guide, I also take feature requests, contact me at Clayton.roberts@live.com",
-        pathImage: "assets/Irremais.png",
+        pathImage: "assets/runes/Irremais.png",
         backgroundColor: Color(0xff881A72),
       ),
     );
@@ -44,7 +48,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
         title: "Choose your Style!",
         description:
             "Show your Empire Pride! choose what style you would like your app to take! (this can be changed at any time in the settings)",
-        pathImage: "assets/Feresh.png",
+        pathImage: "assets/runes/Feresh.png",
         backgroundColor: Color(0xff881A72),
       ),
     );
@@ -54,7 +58,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
         title: "Choose your Style!",
         description:
             "Show your Empire Pride! choose what style you would like your app to take! (this can be changed at any time in the settings)",
-        pathImage: "assets/Feresh.png",
+        pathImage: "assets/runes/Feresh.png",
         backgroundColor: const Color(0xff881A72),
         centerWidget: themeButtons(),
         onCenterItemPress: () {},
@@ -189,6 +193,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                     ),
                     onPressed: () {
                       themeSelected(Themes.dawn);
+                      navigateToApp();
                     },
                     child: const Text(
                       'Dawn',
@@ -207,6 +212,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                   ),
                   onPressed: () {
                     themeSelected(Themes.wintermark);
+                    navigateToApp();
                   },
                   child: const Text('Wintermark',
                       style: TextStyle(
@@ -233,6 +239,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                     ),
                     onPressed: () {
                       themeSelected(Themes.navarr);
+                      navigateToApp();
                     },
                     child: const Text(
                       'Navarr',
@@ -251,6 +258,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                   ),
                   onPressed: () {
                     themeSelected(Themes.league);
+                    navigateToApp();
                   },
                   child: const Text('League',
                       style: TextStyle(
@@ -277,6 +285,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                     ),
                     onPressed: () {
                       themeSelected(Themes.imperialOrcs);
+                      navigateToApp();
                     },
                     child: const Text(
                       'Imperial Orcs',
@@ -295,6 +304,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                   ),
                   onPressed: () {
                     themeSelected(Themes.brassCoast);
+                    navigateToApp();
                   },
                   child: const Text('Brass Coast',
                       style: TextStyle(
@@ -321,6 +331,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                     ),
                     onPressed: () {
                       themeSelected(Themes.varushka);
+                      navigateToApp();
                     },
                     child: const Text(
                       'Varushka',
@@ -339,6 +350,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                   ),
                   onPressed: () {
                     themeSelected(Themes.marches);
+                    navigateToApp();
                   },
                   child: const Text('Marches',
                       style: TextStyle(
@@ -365,6 +377,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                     ),
                     onPressed: () {
                       themeSelected(Themes.urizen);
+                      navigateToApp();
                     },
                     child: const Text(
                       'Urizen',
@@ -383,6 +396,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                   ),
                   onPressed: () {
                     themeSelected(Themes.highGuard);
+                    navigateToApp();
                   },
                   child: const Text('High Guard',
                       style: TextStyle(
@@ -392,16 +406,20 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
             ],
           ),
         ),
-
-
-
       ],
     );
   }
 
-  void themeSelected(Themes themes) {
+  Future<void> themeSelected(Themes theme) async {
+    viewModel.setTheme(theme);
+    MainViewModel mainViewModel = MainViewModel();
+    await mainViewModel.getHasSeenIntro();
+    await mainViewModel.setTheme();
+  }
+
+  void navigateToApp(){
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (_) => const MainPage()));
+        context, MaterialPageRoute(builder: (_) => const MyApp()));
   }
 
   @override
@@ -432,4 +450,4 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
   }
 }
 
-enum Themes { wintermark, dawn, navarr, brassCoast, league, imperialOrcs, varushka, highGuard, urizen, marches}
+enum Themes { wintermark, dawn, navarr, brassCoast, league, imperialOrcs, varushka, highGuard, urizen, marches, defaultTheme}

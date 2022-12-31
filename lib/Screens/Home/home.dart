@@ -12,18 +12,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: (isPressed == true) ? Colors.grey : Colors.blue,
-      child: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            setState(() {
-              isPressed = !isPressed;
-            });
-          },
-          child: Text("i change things"),
-        ),
-      ),
+    return const Center(
+      child: Text("Home"),
     );
   }
 }

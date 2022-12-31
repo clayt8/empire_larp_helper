@@ -1,0 +1,193 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Aesh",
+      "altName": "The Staff, Rune of Thought",
+      "realmAffiliation": "Day",
+      "imagePath": "assets/runes/Aesh.png"
+    },
+    {
+      "id": 2,
+      "name": "Bravash",
+      "altName": "The Seedpod, Rune of Fertility",
+      "realmAffiliation": "Spring",
+      "imagePath": "assets/runes/Bravash.png"
+    },
+    {
+      "id": 3,
+      "name": "Cavul",
+      "altName": "The Swan, Rune of Purity",
+      "realmAffiliation": "Day",
+      "imagePath": "assets/runes/Cavul.png"
+    },
+    {
+      "id": 4,
+      "name": "Diras",
+      "altName": "The Shuttered Lantern, Rune of Secrets",
+      "realmAffiliation": "Night",
+      "imagePath": "assets/runes/Diras.png"
+    },
+    {
+      "id": 5,
+      "name": "Evrom",
+      "altName": "The Sapling, The Rune of Beginning",
+      "realmAffiliation": "Spring",
+      "imagePath": "assets/runes/Evrom.png"
+    },
+    {
+      "id": 6,
+      "name": "Feresh",
+      "altName": "The Eagle, Rune of Majesty",
+      "realmAffiliation": "Summer",
+      "imagePath": "assets/runes/Feresh.png"
+    },
+    {
+      "id": 7,
+      "name": "Gralm",
+      "altName": "The Crossroads, Rune of Destiny",
+      "realmAffiliation": "None",
+      "imagePath": "assets/runes/Gralm.png"
+    },
+    {
+      "id": 8,
+      "name": "Hirmok",
+      "altName": "The Scythe, Rune of Dominion",
+      "realmAffiliation": "Autumn",
+      "imagePath": "assets/runes/Hirmok.png"
+    },
+    {
+      "id": 9,
+      "name": "Irremais",
+      "altName": "The Blade, Rune of Wisdom",
+      "realmAffiliation": "Winter",
+      "imagePath": "assets/runes/Irremais.png"
+    },
+    {
+      "id": 10,
+      "name": "Jotra",
+      "altName": "The Swords, Rune of Battle",
+      "realmAffiliation": "Summer",
+      "imagePath": "assets/runes/Jotra.png"
+    },
+    {
+      "id": 11,
+      "name": "Kyrop",
+      "altName": "The Fish, Rune of Weakness",
+      "realmAffiliation": "Winter",
+      "imagePath": "assets/runes/Kyrop.png"
+    },
+    {
+      "id": 12,
+      "name": "Lann",
+      "altName": "The Hound, Rune of Bargains",
+      "realmAffiliation": "Autumn",
+      "imagePath": "assets/runes/Lann.png"
+    },
+    {
+      "id": 13,
+      "name": "Mawrig",
+      "altName": "The Torrent, Rune of Storms and Disaster",
+      "realmAffiliation": "Spring",
+      "imagePath": "assets/runes/Mawrig.png"
+    },
+    {
+      "id": 14,
+      "name": "Naeve",
+      "altName": "The Fang, Rune of Hunger",
+      "realmAffiliation": "Winter",
+      "imagePath": "assets/runes/Naeve.png"
+    },
+    {
+      "id": 15,
+      "name": "Ophis",
+      "altName": "The Bright Lantern, Rune of Revelation",
+      "realmAffiliation": "Day",
+      "imagePath": "assets/runes/Ophis.png"
+    },
+    {
+      "id": 16,
+      "name": "Pallas",
+      "altName": "The Apple Tree, Rune of Wealth",
+      "realmAffiliation": "Autumn",
+      "imagePath": "assets/runes/Pallas.png"
+    },
+    {
+      "id": 17,
+      "name": "Queros",
+      "altName": "The Wave, Rune of Plots",
+      "realmAffiliation": "Autumn",
+      "imagePath": "assets/runes/Queros.png"
+    },
+    {
+      "id": 18,
+      "name": "Rhyv",
+      "altName": "The Bleeding Wound, Rune of Blood",
+      "realmAffiliation": "Spring",
+      "imagePath": "assets/runes/Rhyv.png"
+    },
+    {
+      "id": 19,
+      "name": "Sular",
+      "altName": "The Ship, Rune of Discovery",
+      "realmAffiliation": "Day",
+      "imagePath": "assets/runes/Sular.png"
+    },
+    {
+      "id": 20,
+      "name": "Tykonus",
+      "altName": "The Banner, Rune of Victory",
+      "realmAffiliation": "Summer",
+      "imagePath": "assets/runes/Tykonus.png"
+    },
+    {
+      "id": 21,
+      "name": "Ull",
+      "altName": "The Road, Rune of Chance",
+      "realmAffiliation": "None",
+      "imagePath": "assets/runes/Ull.png"
+    },
+    {
+      "id": 22,
+      "name": "Verys",
+      "altName": "The Lion, Rune of Might",
+      "realmAffiliation": "Summer",
+      "imagePath": "assets/runes/Verys.png"
+    },
+    {
+      "id": 23,
+      "name": "Wyr",
+      "altName": "The Serpent, Rune of Mystery",
+      "realmAffiliation": "Night",
+      "imagePath": "assets/runes/Wyr.png"
+    },
+    {
+      "id": 24,
+      "name": "Xun",
+      "altName": "The Wyrm, Rune of Transformation",
+      "realmAffiliation": "Night",
+      "imagePath": "assets/runes/Xun.png"
+    },
+    {
+      "id": 25,
+      "name": "Yoorn",
+      "altName": "The Shears, Rune of Ending",
+      "realmAffiliation": "Winter",
+      "imagePath": "assets/runes/Yoorn.png"
+    },
+    {
+      "id": 26,
+      "name": "Zorech",
+      "altName": "The Flame, Rune of Passion",
+      "realmAffiliation": "Night",
+      "imagePath": "assets/runes/Zorech.png"
+    },
+    {
+      "id": 27,
+      "name": "The Unnamed",
+      "altName": "",
+      "realmAffiliation": "",
+      "imagePath": "assets/runes/unnamed.png"
+    }
+  ]
+}

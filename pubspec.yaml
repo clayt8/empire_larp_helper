@@ -26,22 +26,35 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Icons
   cupertino_icons: ^1.0.2
+
+  # Intro slider
   intro_slider: ^4.0.0
+
+  # MVVM
+  get_it: ^7.2.0 # Simple dep injection
+  provider: ^6.0.5 # View model provider
+
+  shared_preferences: ^2.0.15 # Saving theme and start up using shared prefs
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
 
+  # App icon and splash screen
   flutter_native_splash: ^2.2.16
   flutter_launcher_icons: "^0.11.0"
+
+  # MVVM
 
 
 flutter_icons:
   android: "ic_launcher"
   ios: true
-  image_path: "assets/Feresh.png"
+  image_path: "assets/runes/Feresh.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
 
 # following page: https://dart.dev/tools/pub/pubspec
@@ -49,7 +62,7 @@ flutter_icons:
 
 flutter_native_splash:
   color: "#881A72"
-  image: "assets/Feresh.png"
+  image: "assets/runes/Feresh.png"
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -58,9 +71,40 @@ flutter:
   assets:
     - assets/
     - assets/dawnLogo.png
-    - assets/Evrom.png
-    - assets/Irremais.png
-    - assets/Feresh.png
+    - assets/settings.png
+    - assets/home.png
+    - assets/json/rune_card_list.json
+    - assets/runes/Aesh.png
+    - assets/runes/Bravash.png
+    - assets/runes/Cavul.png
+    - assets/runes/Diras.png
+    - assets/runes/Evrom.png
+    - assets/runes/Feresh.png
+    - assets/runes/Gralm.png
+    - assets/runes/Hirmok.png
+    - assets/runes/Irremais.png
+    - assets/runes/Jotra.png
+    - assets/runes/Kyrop.png
+    - assets/runes/Lann.png
+    - assets/runes/Mawrig.png
+    - assets/runes/Naeve.png
+    - assets/runes/Ophis.png
+    - assets/runes/Pallas.png
+    - assets/runes/Queros.png
+    - assets/runes/Rhyv.png
+    - assets/runes/Sular.png
+    - assets/runes/Tykonus.png
+    - assets/runes/Ull.png
+    - assets/runes/Verys.png
+    - assets/runes/Wyr.png
+    - assets/runes/Xun.png
+    - assets/runes/Yoorn.png
+    - assets/runes/Zorech.png
+    - assets/runes/unnamed.png
+
+
+  # Runes
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
