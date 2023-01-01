@@ -1,6 +1,9 @@
 import 'package:empire_lrp_helper/Screens/Runes/model/runes_model.dart';
+import 'package:empire_lrp_helper/Screens/Runes/screens/rune_detail_screen.dart';
 import 'package:empire_lrp_helper/Screens/Runes/viewmodel/runes_viewmodel.dart';
 import 'package:flutter/material.dart';
+
+import '../../Home/home.dart';
 
 class RunesScreen extends StatefulWidget {
   const RunesScreen({Key? key}) : super(key: key);
@@ -60,8 +63,10 @@ class _RunesScreenState extends State<RunesScreen> {
                               subtitle: Text(result[i].altName),
                               trailing: Image.asset(result[i].imagePath,
                                   height: 36, fit: BoxFit.cover),
+                              onTap: () => Navigator.of(context).push(runeDetailRoute(result[i].name)),
                             ),
-                          )),
+                          ),
+                  ),
                 )
               ],
             );

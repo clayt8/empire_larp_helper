@@ -15,7 +15,6 @@ class RunesViewModel {
   RunesRepo repo = RunesRepo();
 
   Future<List<RuneCardModel>> getRuneCardListFromRepo() async {
-    repo.readRuneCardListFromJSON();
     return repo.readRuneCardListFromJSON();
   }
 }
