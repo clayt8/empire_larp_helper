@@ -26,6 +26,7 @@ class RuneDetailScreen extends StatefulWidget {
 class _RuneDetailScreenState extends State<RuneDetailScreen> {
   late RuneDetailViewModel viewModel;
   late Future<RuneModel> rune;
+  String title = "Rune";
 
   @override
   void initState() {
@@ -34,7 +35,6 @@ class _RuneDetailScreenState extends State<RuneDetailScreen> {
     viewModel = RuneDetailViewModel();
     rune = viewModel.getRune();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _RuneDetailScreenState extends State<RuneDetailScreen> {
         ),
         home: Scaffold(
           appBar: AppBar(
-            title: Text("Rune (to be gotten from repo)"),
+            title: Text(title),
             automaticallyImplyLeading: false,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -56,9 +56,43 @@ class _RuneDetailScreenState extends State<RuneDetailScreen> {
               },
             ),
           ),
-          body: const Center(
-            child: Text("Rune page"),
+          body: FutureBuilder<RuneModel>(
+            future: rune,
+            builder: (BuildContext context,
+                AsyncSnapshot<RuneModel> snapshot) {
+              if (snapshot.hasData && snapshot.data != null) {
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(snapshot.data!.name),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 10.0),
+                        height: 120,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(image: AssetImage(snapshot.data!.imagePath))),
+                      ),
+                      Text(snapshot.data!.description),
+                      Text(snapshot.data!.useInMagic),
+                      Text(snapshot.data!.useInCrafting),
+                    ],
+                  ),
+                );
+              } else {
+                return const Text(
+                    "Loading Runes"); //TODO cool loading rune animation thing
+              }
+            },
           ),
         ));
   }
+
+
+  void setTitle(String runeName){
+    setState(() {
+      title = runeName;
+    });
+  }
+
 }

@@ -11,16 +11,16 @@ class RuneModel {
   RuneModel(this.id, this.name, this.altName, this.realmAffiliation,
       this.description, this.useInMagic, this.useInCrafting, this.imagePath);
 
-  factory RuneModel.fromJson(dynamic json) {
+  factory RuneModel.fromJson(Map<String, dynamic> data) {
     return RuneModel(
-        json['id'] as int,
-        json['name'] as String,
-        json['altName'] as String,
-        json['realmAffiliation'] as String,
-        json['description'] as String,
-        json['useInMagic'] as String,
-        json['useInCrafting'] as String,
-        json['imagePath'] as String);
+        data['id'] as int,
+        data['name'] as String,
+        data['altName'] as String,
+        data['realmAffiliation'] as String,
+        data['description'] as String,
+        data['useInMagic'] as String,
+        data['useInCrafting'] as String,
+        data['imagePath'] as String);
   }
 }
 

@@ -73,7 +73,6 @@ flutter:
     - assets/dawnLogo.png
     - assets/settings.png
     - assets/home.png
-    - assets/json/rune_card_list.json
     - assets/runes/Aesh.png
     - assets/runes/Bravash.png
     - assets/runes/Cavul.png
@@ -101,6 +100,9 @@ flutter:
     - assets/runes/Yoorn.png
     - assets/runes/Zorech.png
     - assets/runes/unnamed.png
+    - assets/json/rune_card_list.json
+    - assets/json/rune_details/aesh.json
+
 
 
   # Runes

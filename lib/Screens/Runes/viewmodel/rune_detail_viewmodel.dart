@@ -16,6 +16,6 @@ class RuneDetailViewModel {
   RuneDetailRepo repo = RuneDetailRepo();
 
   Future<RuneModel> getRune() {
-    return repo.readRuneDetailFromJSON(currentRuneName);
+    return repo.readRuneDetailFromJSON(currentRuneName.toLowerCase());
   }
 }

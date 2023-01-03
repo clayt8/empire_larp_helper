@@ -12,10 +12,11 @@ class RuneDetailRepo {
   Future<RuneModel> readRuneDetailFromJSON(String runeName) async {
     try {
       //code that has potential to throw an exception
-      String response = await rootBundle.loadString('assets/json/rune_details/$runeName.json');
+      String path = "assets/json/rune_details/$runeName.json";
+      String response = await rootBundle.loadString(path);
 
       var runeJson = jsonDecode(response)['rune'];
-      RuneModel rune = runeJson.map((runesObjsJson) => RuneModel.fromJson(runesObjsJson));
+      RuneModel rune = RuneModel.fromJson(runeJson);
 
       return rune;
 
