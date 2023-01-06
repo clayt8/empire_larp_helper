@@ -65,17 +65,32 @@ class _RuneDetailScreenState extends State<RuneDetailScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(snapshot.data!.name),
                       Container(
-                        margin: const EdgeInsets.only(bottom: 10.0),
+                        margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 40),
+                        child: Text(snapshot.data!.name, style: const TextStyle(fontSize: 54)),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 20.0, top: 20.0),
                         height: 120,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(image: AssetImage(snapshot.data!.imagePath))),
                       ),
-                      Text(snapshot.data!.description),
-                      Text(snapshot.data!.useInMagic),
-                      Text(snapshot.data!.useInCrafting),
+                      const Text("Description", style: TextStyle(fontSize: 22)),
+                      Container(
+                        margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10, bottom: 10),
+                        child: Text(snapshot.data!.description, style: const TextStyle(fontSize: 16)),
+                      ),
+                      const Text("Uses in Magic", style: TextStyle(fontSize: 22)),
+                      Container(
+                        margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10, bottom: 10),
+                        child: Text(snapshot.data!.useInMagic, style: const TextStyle(fontSize: 16))
+                      ),
+                      const Text("Uses in Crafting", style: TextStyle(fontSize: 22)),
+                      Container(
+                          margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 10, bottom: 80),
+                          child: Text(snapshot.data!.useInCrafting, style: const TextStyle(fontSize: 16))
+                      ),
                     ],
                   ),
                 );
