@@ -1,5 +1,5 @@
 import 'package:empire_lrp_helper/Screens/Home/home.dart';
-import 'package:empire_lrp_helper/Screens/Runes/screens/runes.dart';
+import 'package:empire_lrp_helper/Screens/Runes/screens/runes_list_screen.dart';
 import 'package:empire_lrp_helper/Screens/Settings/settings.dart';
 import 'package:empire_lrp_helper/Themes/themes.dart';
 import 'package:empire_lrp_helper/intro_slider/intro_slider.dart';

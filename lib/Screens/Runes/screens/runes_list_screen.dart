@@ -1,9 +1,9 @@
 import 'package:empire_lrp_helper/Screens/Runes/model/runes_model.dart';
 import 'package:empire_lrp_helper/Screens/Runes/screens/rune_detail_screen.dart';
+import 'package:empire_lrp_helper/Screens/Runes/screens/rune_study_screen.dart';
 import 'package:empire_lrp_helper/Screens/Runes/viewmodel/runes_viewmodel.dart';
 import 'package:flutter/material.dart';
 
-import '../../Home/home.dart';
 
 class RunesScreen extends StatefulWidget {
   const RunesScreen({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class _RunesScreenState extends State<RunesScreen> {
             AsyncSnapshot<List<RuneCardModel>> snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             final result = _searchRune(snapshot.data);
-
+            viewModel.loadedList = snapshot.data!;
             return Column(
               children: [
                 Container(
@@ -77,9 +77,7 @@ class _RunesScreenState extends State<RunesScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          //TODO navigate to study mode page, with info
-        },
+        onPressed: () => Navigator.of(context).push(runeStudyRoute(viewModel.loadedList)),
         label: const Text('Study Mode'),
       ),
     );

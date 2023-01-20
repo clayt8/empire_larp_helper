@@ -30,7 +30,6 @@ class _RuneDetailScreenState extends State<RuneDetailScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     viewModel = RuneDetailViewModel();
     rune = viewModel.getRune();

@@ -14,6 +14,8 @@ class RunesViewModel {
   RunesViewModel._internal();
   RunesRepo repo = RunesRepo();
 
+  List<RuneCardModel> loadedList = [];
+
   Future<List<RuneCardModel>> getRuneCardListFromRepo() async {
     return repo.readRuneCardListFromJSON();
   }
