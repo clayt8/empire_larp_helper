@@ -1,9 +1,10 @@
 import 'package:empire_lrp_helper/Screens/Runes/viewmodel/rune_study_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shake_animated/flutter_shake_animated.dart';
 import '../../../main_viewmodel.dart';
 import '../model/runes_model.dart';
 import '../model/runes_study_model.dart';
-import '../viewmodel/runes_viewmodel.dart';
+import 'dart:async';
 
 Route runeStudyRoute(List<RuneCardModel> runes) {
   RuneStudyViewModel viewModel = RuneStudyViewModel();
@@ -24,12 +25,31 @@ class RuneStudyScreen extends StatefulWidget {
   State<RuneStudyScreen> createState() => _RuneStudyScreenState();
 }
 
-class _RuneStudyScreenState extends State<RuneStudyScreen> {
+class _RuneStudyScreenState extends State<RuneStudyScreen>
+    with SingleTickerProviderStateMixin {
   late List<RuneCardModel> runes;
   late RuneStudyViewModel viewModel;
   late RuneStudyModel currentSet;
 
   String title = "Rune Study Time!";
+
+  bool shakeCard0 = false;
+  bool shakeCard1 = false;
+  bool shakeCard2 = false;
+  bool shakeCard3 = false;
+  bool shakeCard4 = false;
+
+  ShakeConstant shakeCon0 = ShakeVerticalConstant2();
+  ShakeConstant shakeCon1 = ShakeVerticalConstant2();
+  ShakeConstant shakeCon2 = ShakeVerticalConstant2();
+  ShakeConstant shakeCon3 = ShakeVerticalConstant2();
+  ShakeConstant shakeCon4 = ShakeVerticalConstant2();
+
+  Color color0 = Colors.white;
+  Color color1 = Colors.white;
+  Color color2 = Colors.white;
+  Color color3 = Colors.white;
+  Color color4 = Colors.white;
 
   @override
   void initState() {
@@ -37,6 +57,80 @@ class _RuneStudyScreenState extends State<RuneStudyScreen> {
     viewModel = RuneStudyViewModel();
     runes = viewModel.runes.toList();
     currentSet = viewModel.getNewSet();
+  }
+
+  void cardSelected(RuneCardModel choice, int index) {
+    if (choice == currentSet.currentActive) {
+      setState(() {
+        color0 = Colors.green[50]!;
+        shakeCon0 = ShakeVerticalConstant2();
+        shakeCard0 = true;
+        switch (index) {
+          case 1:
+            {
+              color1 = Colors.green[50]!;
+              shakeCon1 = ShakeVerticalConstant2();
+            }
+            break;
+          case 2:
+            {
+              color2 = Colors.green[50]!;
+              shakeCon2 = ShakeVerticalConstant2();
+            }
+            break;
+          case 3:
+            {
+              color3 = Colors.green[50]!;
+              shakeCon3 = ShakeVerticalConstant2();
+            }
+            break;
+          case 4:
+            {
+              color4 = Colors.green[50]!;
+              shakeCon4 = ShakeVerticalConstant2();
+            }
+            break;
+        }
+      });
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        setState(() {
+          resetAll();
+          currentSet = viewModel.getNewSet();
+        });
+      });
+
+
+    } else {}
+
+    // setState(() {
+    //   color0 = Colors.green[50]!;
+    // });
+    // currentSet = viewModel.getNewSet();
+
+    // Future.delayed(const Duration(milliseconds: 500), () {
+    //   setState(() {
+    //     shakeCard0 = false;
+    //     cardSelected(currentSet.choiceList[0], 1);
+    //   });
+    // });
+  }
+
+
+  void resetAll(){
+    setState(() {
+      color0 = Colors.white;
+      color1 = Colors.white;
+      color2 = Colors.white;
+      color3 = Colors.white;
+      color4 = Colors.white;
+
+      shakeCard0 = false;
+      shakeCard1 = false;
+      shakeCard2 = false;
+      shakeCard3 = false;
+      shakeCard4 = false;
+    });
   }
 
   @override
@@ -62,29 +156,36 @@ class _RuneStudyScreenState extends State<RuneStudyScreen> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: Center(
-                    child: Expanded(
+              Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: ShakeWidget(
+                    shakeConstant: shakeCon0,
+                    autoPlay: shakeCard0,
+                    enableWebMouseHover: true,
+                    child: SizedBox(
+                      height: 300,
+                      width: 300,
                       child: Card(
+                        color: color0,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
                         elevation: 20,
-                        child: Padding(
-                            padding: EdgeInsets.all(70),
+                        child: Center(
                             child: currentSet.isRuneImage
                                 ? Image.asset(
                                     currentSet.currentActive.imagePath,
                                     height: 120,
                                     fit: BoxFit.cover)
-                                : Text(currentSet.currentActive.name)),
+                                : Text(currentSet.currentActive.name,
+                                    style: const TextStyle(fontSize: 56),
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center)),
                       ),
                     ),
                   )),
               Container(
-                margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 40),
+                margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 60),
                 child: studyButtons(currentSet),
               ),
             ],
@@ -103,36 +204,62 @@ class _RuneStudyScreenState extends State<RuneStudyScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  elevation: 20,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(70),
-                      child: Text(currentSet.choiceList[0].name),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: SizedBox(
+                  height: 160,
+                  width: 160,
+                  child: Card(
+                    color: color1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    elevation: 20,
+                    child: InkWell(
+                      onTap: () {
+                        cardSelected(currentSet.choiceList[0], 1);
+                      },
+                      child: Center(
+                          child: !currentSet.isRuneImage
+                              ? Image.asset(currentSet.choiceList[0].imagePath,
+                                  height: 80, fit: BoxFit.cover)
+                              : Text(currentSet.choiceList[0].name,
+                                  style: const TextStyle(fontSize: 28),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center)),
                     ),
                   ),
                 ),
               ),
-              Center(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  elevation: 20,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(70),
-                      child: Text(currentSet.choiceList[1].name),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: SizedBox(
+                  height: 160,
+                  width: 160,
+                  child: Card(
+                    color: color2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    elevation: 20,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          cardSelected(currentSet.choiceList[1], 2);
+                        });
+                      },
+                      child: Center(
+                          child: !currentSet.isRuneImage
+                              ? Image.asset(currentSet.choiceList[1].imagePath,
+                                  height: 80, fit: BoxFit.cover)
+                              : Text(currentSet.choiceList[1].name,
+                                  style: const TextStyle(fontSize: 28),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center)),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -142,32 +269,60 @@ class _RuneStudyScreenState extends State<RuneStudyScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  elevation: 20,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(70),
-                      child: Text(currentSet.choiceList[2].name),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: SizedBox(
+                  height: 160,
+                  width: 160,
+                  child: Card(
+                    color: color3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    elevation: 20,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          cardSelected(currentSet.choiceList[2], 3);
+                        });
+                      },
+                      child: Center(
+                          child: !currentSet.isRuneImage
+                              ? Image.asset(currentSet.choiceList[2].imagePath,
+                                  height: 80, fit: BoxFit.cover)
+                              : Text(currentSet.choiceList[2].name,
+                                  style: const TextStyle(fontSize: 28),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center)),
                     ),
                   ),
                 ),
               ),
-              Center(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  elevation: 20,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: EdgeInsets.all(70),
-                      child: Text(currentSet.choiceList[3].name),
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: SizedBox(
+                  height: 160,
+                  width: 160,
+                  child: Card(
+                    color: color4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    elevation: 20,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          cardSelected(currentSet.choiceList[3], 4);
+                        });
+                      },
+                      child: Center(
+                          child: !currentSet.isRuneImage
+                              ? Image.asset(currentSet.choiceList[3].imagePath,
+                                  height: 80, fit: BoxFit.cover)
+                              : Text(currentSet.choiceList[3].name,
+                                  style: const TextStyle(fontSize: 28),
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center)),
                     ),
                   ),
                 ),

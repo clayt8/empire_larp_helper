@@ -37,6 +37,7 @@ dependencies:
   provider: ^6.0.5 # View model provider
 
   shared_preferences: ^2.0.15 # Saving theme and start up using shared prefs
+  flutter_shake_animated: ^0.0.5
 
 
 dev_dependencies:
