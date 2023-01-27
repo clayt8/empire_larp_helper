@@ -33,6 +33,8 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
 
   String title = "Rune Study Time!";
 
+  bool allowClick = true;
+
   bool shakeCard0 = false;
   bool shakeCard1 = false;
   bool shakeCard2 = false;
@@ -60,6 +62,7 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
   }
 
   void cardSelected(RuneCardModel choice, int index) {
+    allowClick = false;
     if (choice == currentSet.currentActive) {
       setState(() {
         color0 = Colors.green[50]!;
@@ -92,16 +95,83 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
             break;
         }
       });
-
-      Future.delayed(const Duration(milliseconds: 500), () {
-        setState(() {
-          resetAll();
-          currentSet = viewModel.getNewSet();
-        });
+    } else {
+      setState(() {
+        color0 = Colors.red[200]!;
+        shakeCon0 = ShakeHorizontalConstant2();
+        shakeCard0 = true;
+        switch (index) {
+          case 1:
+            {
+              color1 = Colors.red[200]!;
+              shakeCon1 = ShakeHorizontalConstant2();
+              shakeCard1 = true;
+            }
+            break;
+          case 2:
+            {
+              color2 = Colors.red[200]!;
+              shakeCon2 = ShakeHorizontalConstant2();
+              shakeCard2 = true;
+            }
+            break;
+          case 3:
+            {
+              color3 = Colors.red[200]!;
+              shakeCon3 = ShakeHorizontalConstant2();
+              shakeCard3 = true;
+            }
+            break;
+          case 4:
+            {
+              color4 = Colors.red[200]!;
+              shakeCon4 = ShakeHorizontalConstant2();
+              shakeCard4 = true;
+            }
+            break;
+        }
       });
 
+      setState(() {
+        switch (findCorrectCard()) {
+          case 1:
+            {
+              color1 = Colors.green[50]!;
+              shakeCon1 = ShakeVerticalConstant2();
+              shakeCard1 = true;
+            }
+            break;
+          case 2:
+            {
+              color2 = Colors.green[50]!;
+              shakeCon2 = ShakeVerticalConstant2();
+              shakeCard2 = true;
+            }
+            break;
+          case 3:
+            {
+              color3 = Colors.green[50]!;
+              shakeCon3 = ShakeVerticalConstant2();
+              shakeCard3 = true;
+            }
+            break;
+          case 4:
+            {
+              color4 = Colors.green[50]!;
+              shakeCon4 = ShakeVerticalConstant2();
+              shakeCard4 = true;
+            }
+            break;
+        }
+      });
+    }
 
-    } else {}
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        currentSet = viewModel.getNewSet();
+        resetAll();
+      });
+    });
 
     // setState(() {
     //   color0 = Colors.green[50]!;
@@ -116,8 +186,16 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
     // });
   }
 
+  int findCorrectCard() {
+    for (int i = 0; i < currentSet.choiceList.length; i++) {
+      if (currentSet.currentActive == currentSet.choiceList[i]) {
+        return i + 1;
+      }
+    }
+    return 0;
+  }
 
-  void resetAll(){
+  void resetAll() {
     setState(() {
       color0 = Colors.white;
       color1 = Colors.white;
@@ -130,6 +208,7 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
       shakeCard2 = false;
       shakeCard3 = false;
       shakeCard4 = false;
+      allowClick = true;
     });
   }
 
@@ -217,7 +296,9 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
                     elevation: 20,
                     child: InkWell(
                       onTap: () {
-                        cardSelected(currentSet.choiceList[0], 1);
+                        if(allowClick) {
+                          cardSelected(currentSet.choiceList[0], 1);
+                        }
                       },
                       child: Center(
                           child: !currentSet.isRuneImage
@@ -244,9 +325,9 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
                     elevation: 20,
                     child: InkWell(
                       onTap: () {
-                        setState(() {
+                        if(allowClick) {
                           cardSelected(currentSet.choiceList[1], 2);
-                        });
+                        }
                       },
                       child: Center(
                           child: !currentSet.isRuneImage
@@ -282,9 +363,9 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
                     elevation: 20,
                     child: InkWell(
                       onTap: () {
-                        setState(() {
+                        if(allowClick) {
                           cardSelected(currentSet.choiceList[2], 3);
-                        });
+                        }
                       },
                       child: Center(
                           child: !currentSet.isRuneImage
@@ -311,9 +392,9 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
                     elevation: 20,
                     child: InkWell(
                       onTap: () {
-                        setState(() {
+                        if(allowClick) {
                           cardSelected(currentSet.choiceList[3], 4);
-                        });
+                        }
                       },
                       child: Center(
                           child: !currentSet.isRuneImage
