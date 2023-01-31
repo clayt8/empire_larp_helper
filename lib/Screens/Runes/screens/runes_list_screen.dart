@@ -3,6 +3,7 @@ import 'package:empire_lrp_helper/Screens/Runes/screens/rune_detail_screen.dart'
 import 'package:empire_lrp_helper/Screens/Runes/screens/rune_study_screen.dart';
 import 'package:empire_lrp_helper/Screens/Runes/viewmodel/runes_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 class RunesScreen extends StatefulWidget {
@@ -63,7 +64,10 @@ class _RunesScreenState extends State<RunesScreen> {
                               subtitle: Text(result[i].altName),
                               trailing: Image.asset(result[i].imagePath,
                                   height: 36, fit: BoxFit.cover),
-                              onTap: () => Navigator.of(context).push(runeDetailRoute(result[i].name)),
+                              onTap: () {
+                                HapticFeedback.lightImpact();
+                                Navigator.of(context).push(runeDetailRoute(result[i].name));
+                              },
                             ),
                           ),
                   ),
@@ -77,22 +81,14 @@ class _RunesScreenState extends State<RunesScreen> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => Navigator.of(context).push(runeStudyRoute(viewModel.loadedList)),
+        onPressed: () {
+          HapticFeedback.lightImpact();
+          Navigator.of(context).push(runeStudyRoute(viewModel.loadedList));
+        },
         label: const Text('Study Mode'),
       ),
     );
   }
-
-  // void searchRune(String query) {
-  //   final suggestions = _list.where((rune) {
-  //     final runeName = rune.name.toLowerCase();
-  //     final input = query.toLowerCase();
-  //     return runeName.contains(input);
-  //   }).toList();
-  //
-  //   final futureList = constructFuture(suggestions);
-  //   setState(() => list = futureList);
-  // }
 
   List<RuneCardModel> _searchRune(List<RuneCardModel>? list) {
     if (searchString?.isNotEmpty == true) {

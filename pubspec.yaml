@@ -38,6 +38,9 @@ dependencies:
 
   shared_preferences: ^2.0.15 # Saving theme and start up using shared prefs
   flutter_shake_animated: ^0.0.5
+  flutter_shakemywidget: ^1.0.5+1
+  audioplayers: ^0.20.1
+
 
 
 dev_dependencies:
@@ -50,6 +53,7 @@ dev_dependencies:
   flutter_launcher_icons: "^0.11.0"
 
   # MVVM
+
 
 
 flutter_icons:
@@ -103,6 +107,12 @@ flutter:
     - assets/runes/unnamed.png
     - assets/json/rune_card_list.json
     - assets/json/rune_details/aesh.json
+
+    - assets/sounds/correct.wav
+    - assets/sounds/incorrect.mp3
+
+
+    - assets/icons/construction.png
 
 
 

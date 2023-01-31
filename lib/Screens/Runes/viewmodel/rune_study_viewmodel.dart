@@ -16,6 +16,8 @@ class RuneStudyViewModel {
   List<RuneCardModel> runes = [];
   List<RuneCardModel> shuffledList = [];
 
+  bool correctChoice = false;
+
   void randomiseList(List<RuneCardModel> list) {
     List<RuneCardModel> shuffledListTemp = list.toList();
     shuffledListTemp.shuffle();

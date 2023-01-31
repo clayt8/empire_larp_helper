@@ -1,10 +1,13 @@
 import 'package:empire_lrp_helper/Screens/Runes/viewmodel/rune_study_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_shake_animated/flutter_shake_animated.dart';
+import 'package:flutter_shakemywidget/flutter_shakemywidget.dart';
 import '../../../main_viewmodel.dart';
 import '../model/runes_model.dart';
 import '../model/runes_study_model.dart';
 import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:audioplayers/audioplayers.dart';
+
 
 Route runeStudyRoute(List<RuneCardModel> runes) {
   RuneStudyViewModel viewModel = RuneStudyViewModel();
@@ -35,23 +38,22 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
 
   bool allowClick = true;
 
-  bool shakeCard0 = false;
-  bool shakeCard1 = false;
-  bool shakeCard2 = false;
-  bool shakeCard3 = false;
-  bool shakeCard4 = false;
+  final shakeKey0 = GlobalKey<ShakeWidgetState>();
+  final shakeKey1 = GlobalKey<ShakeWidgetState>();
+  final shakeKey2 = GlobalKey<ShakeWidgetState>();
+  final shakeKey3 = GlobalKey<ShakeWidgetState>();
+  final shakeKey4 = GlobalKey<ShakeWidgetState>();
 
-  ShakeConstant shakeCon0 = ShakeVerticalConstant2();
-  ShakeConstant shakeCon1 = ShakeVerticalConstant2();
-  ShakeConstant shakeCon2 = ShakeVerticalConstant2();
-  ShakeConstant shakeCon3 = ShakeVerticalConstant2();
-  ShakeConstant shakeCon4 = ShakeVerticalConstant2();
+  bool correctChoice = false;
 
   Color color0 = Colors.white;
   Color color1 = Colors.white;
   Color color2 = Colors.white;
   Color color3 = Colors.white;
   Color color4 = Colors.white;
+
+  String correctSound = "assets/sounds/correct.wav";
+  String incorrectSound = "assets/sounds/incorrect.mp3";
 
   @override
   void initState() {
@@ -62,109 +64,99 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
   }
 
   void cardSelected(RuneCardModel choice, int index) {
-    allowClick = false;
-    if (choice == currentSet.currentActive) {
-      setState(() {
-        color0 = Colors.green[50]!;
-        shakeCon0 = ShakeVerticalConstant2();
-        shakeCard0 = true;
-        switch (index) {
-          case 1:
-            {
-              color1 = Colors.green[50]!;
-              shakeCon1 = ShakeVerticalConstant2();
-            }
-            break;
-          case 2:
-            {
-              color2 = Colors.green[50]!;
-              shakeCon2 = ShakeVerticalConstant2();
-            }
-            break;
-          case 3:
-            {
-              color3 = Colors.green[50]!;
-              shakeCon3 = ShakeVerticalConstant2();
-            }
-            break;
-          case 4:
-            {
-              color4 = Colors.green[50]!;
-              shakeCon4 = ShakeVerticalConstant2();
-            }
-            break;
-        }
-      });
-    } else {
-      setState(() {
-        color0 = Colors.red[200]!;
-        shakeCon0 = ShakeHorizontalConstant2();
-        shakeCard0 = true;
-        switch (index) {
-          case 1:
-            {
-              color1 = Colors.red[200]!;
-              shakeCon1 = ShakeHorizontalConstant2();
-              shakeCard1 = true;
-            }
-            break;
-          case 2:
-            {
-              color2 = Colors.red[200]!;
-              shakeCon2 = ShakeHorizontalConstant2();
-              shakeCard2 = true;
-            }
-            break;
-          case 3:
-            {
-              color3 = Colors.red[200]!;
-              shakeCon3 = ShakeHorizontalConstant2();
-              shakeCard3 = true;
-            }
-            break;
-          case 4:
-            {
-              color4 = Colors.red[200]!;
-              shakeCon4 = ShakeHorizontalConstant2();
-              shakeCard4 = true;
-            }
-            break;
-        }
-      });
+    setState(() {
+      if (choice == currentSet.currentActive) {
+        correctChoice = true;
+      } else {
+        correctChoice = false;
+      }
+    });
 
-      setState(() {
-        switch (findCorrectCard()) {
-          case 1:
-            {
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (correctChoice) {
+        final player = AudioCache();
+        player.play('sounds/correct.wav');
+
+        HapticFeedback.lightImpact();
+        setState(() {
+          allowClick = false;
+          color0 = Colors.green[50]!;
+          switch (index) {
+            case 1:
               color1 = Colors.green[50]!;
-              shakeCon1 = ShakeVerticalConstant2();
-              shakeCard1 = true;
-            }
-            break;
-          case 2:
-            {
+              break;
+            case 2:
               color2 = Colors.green[50]!;
-              shakeCon2 = ShakeVerticalConstant2();
-              shakeCard2 = true;
-            }
-            break;
-          case 3:
-            {
+              break;
+            case 3:
               color3 = Colors.green[50]!;
-              shakeCon3 = ShakeVerticalConstant2();
-              shakeCard3 = true;
-            }
-            break;
-          case 4:
-            {
+              break;
+            case 4:
               color4 = Colors.green[50]!;
-              shakeCon4 = ShakeVerticalConstant2();
-              shakeCard4 = true;
-            }
-            break;
-        }
-      });
-    }
+              break;
+          }
+        });
+      } else {
+        final player = AudioCache();
+        player.play('sounds/incorrect.mp3');
+
+        setState(() {
+          allowClick = false;
+          color0 = Colors.red[200]!;
+          shakeKey0.currentState?.shake();
+          HapticFeedback.heavyImpact();
+          switch (index) {
+            case 1:
+              {
+                color1 = Colors.red[200]!;
+                shakeKey1.currentState?.shake();
+              }
+              break;
+            case 2:
+              {
+                color2 = Colors.red[200]!;
+                shakeKey2.currentState?.shake();
+              }
+              break;
+            case 3:
+              {
+                color3 = Colors.red[200]!;
+                shakeKey3.currentState?.shake();
+              }
+              break;
+            case 4:
+              {
+                color4 = Colors.red[200]!;
+                shakeKey4.currentState?.shake();
+              }
+              break;
+          }
+
+          switch (findCorrectCard()) {
+            case 1:
+              {
+                color1 = Colors.green[50]!;
+              }
+              break;
+            case 2:
+              {
+                color2 = Colors.green[50]!;
+              }
+              break;
+            case 3:
+              {
+                color3 = Colors.green[50]!;
+              }
+              break;
+            case 4:
+              {
+                color4 = Colors.green[50]!;
+              }
+              break;
+          }
+        });
+      }
+    });
 
     Future.delayed(const Duration(milliseconds: 500), () {
       setState(() {
@@ -172,18 +164,6 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
         resetAll();
       });
     });
-
-    // setState(() {
-    //   color0 = Colors.green[50]!;
-    // });
-    // currentSet = viewModel.getNewSet();
-
-    // Future.delayed(const Duration(milliseconds: 500), () {
-    //   setState(() {
-    //     shakeCard0 = false;
-    //     cardSelected(currentSet.choiceList[0], 1);
-    //   });
-    // });
   }
 
   int findCorrectCard() {
@@ -202,20 +182,22 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
       color2 = Colors.white;
       color3 = Colors.white;
       color4 = Colors.white;
-
-      shakeCard0 = false;
-      shakeCard1 = false;
-      shakeCard2 = false;
-      shakeCard3 = false;
-      shakeCard4 = false;
       allowClick = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
     MainViewModel mainViewModel = MainViewModel();
     MaterialColor theme = mainViewModel.colourTheme;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    // Height (without SafeArea)
+    var padding = MediaQuery.of(context).viewPadding;
+
+    // Height (without status and toolbar)
+    double height3 = height - padding.top - kToolbarHeight;
 
     return MaterialApp(
         theme: ThemeData(
@@ -237,13 +219,14 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
             children: [
               Padding(
                   padding: const EdgeInsets.only(top: 30),
-                  child: ShakeWidget(
-                    shakeConstant: shakeCon0,
-                    autoPlay: shakeCard0,
-                    enableWebMouseHover: true,
+                  child: ShakeMe(
+                    shakeDuration: const Duration(milliseconds: 500),
+                    shakeCount: 3,
+                    shakeOffset: 10,
+                    key: shakeKey0,
                     child: SizedBox(
-                      height: 300,
-                      width: 300,
+                      height: ((width / 100) * 75),
+                      width: ((width / 100) * 75),
                       child: Card(
                         color: color0,
                         shape: RoundedRectangleBorder(
@@ -264,15 +247,15 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
                     ),
                   )),
               Container(
-                margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 60),
-                child: studyButtons(currentSet),
+                margin: EdgeInsets.only(left: 20.0, right: 20.0, top: ((height3 / 100) * 4)),
+                child: studyButtons(currentSet, ((width / 100) * 40)),
               ),
             ],
           ),
         ));
   }
 
-  Widget studyButtons(RuneStudyModel currentSet) {
+  Widget studyButtons(RuneStudyModel currentSet, double size) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -284,63 +267,77 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.all(5),
-                child: SizedBox(
-                  height: 160,
-                  width: 160,
-                  child: Card(
-                    color: color1,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                  padding: const EdgeInsets.all(5),
+                  child: ShakeMe(
+                    key: shakeKey1,
+                    shakeOffset: 10,
+                    shakeCount: 3,
+                    shakeDuration: const Duration(milliseconds: 500),
+                    child: SizedBox(
+                      height: size,
+                      width: size,
+                      child: Card(
+                        color: color1,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        elevation: 20,
+                        child: InkWell(
+                          onTap: () {
+                            if (allowClick) {
+                              cardSelected(currentSet.choiceList[0], 1);
+                            }
+                          },
+                          child: Center(
+                              child: !currentSet.isRuneImage
+                                  ? Image.asset(
+                                      currentSet.choiceList[0].imagePath,
+                                      height: 80,
+                                      fit: BoxFit.cover)
+                                  : Text(currentSet.choiceList[0].name,
+                                      style: const TextStyle(fontSize: 28),
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center)),
+                        ),
+                      ),
                     ),
-                    elevation: 20,
-                    child: InkWell(
-                      onTap: () {
-                        if(allowClick) {
-                          cardSelected(currentSet.choiceList[0], 1);
-                        }
-                      },
-                      child: Center(
-                          child: !currentSet.isRuneImage
-                              ? Image.asset(currentSet.choiceList[0].imagePath,
-                                  height: 80, fit: BoxFit.cover)
-                              : Text(currentSet.choiceList[0].name,
-                                  style: const TextStyle(fontSize: 28),
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center)),
-                    ),
-                  ),
-                ),
-              ),
+                  )),
               Padding(
-                padding: const EdgeInsets.all(5),
-                child: SizedBox(
-                  height: 160,
-                  width: 160,
-                  child: Card(
-                    color: color2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                  padding: const EdgeInsets.all(5),
+                  child: ShakeMe(
+                    key: shakeKey2,
+                    shakeOffset: 10,
+                    shakeCount: 3,
+                    shakeDuration: const Duration(milliseconds: 500),
+                    child: SizedBox(
+                      height: size,
+                      width: size,
+                      child: Card(
+                        color: color2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        elevation: 20,
+                        child: InkWell(
+                          onTap: () {
+                            if (allowClick) {
+                              cardSelected(currentSet.choiceList[1], 2);
+                            }
+                          },
+                          child: Center(
+                              child: !currentSet.isRuneImage
+                                  ? Image.asset(
+                                      currentSet.choiceList[1].imagePath,
+                                      height: 80,
+                                      fit: BoxFit.cover)
+                                  : Text(currentSet.choiceList[1].name,
+                                      style: const TextStyle(fontSize: 28),
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center)),
+                        ),
+                      ),
                     ),
-                    elevation: 20,
-                    child: InkWell(
-                      onTap: () {
-                        if(allowClick) {
-                          cardSelected(currentSet.choiceList[1], 2);
-                        }
-                      },
-                      child: Center(
-                          child: !currentSet.isRuneImage
-                              ? Image.asset(currentSet.choiceList[1].imagePath,
-                                  height: 80, fit: BoxFit.cover)
-                              : Text(currentSet.choiceList[1].name,
-                                  style: const TextStyle(fontSize: 28),
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center)),
-                    ),
-                  ),
-                ),
-              ),
+                  )),
             ],
           ),
         ),
@@ -351,63 +348,77 @@ class _RuneStudyScreenState extends State<RuneStudyScreen>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.all(5),
-                child: SizedBox(
-                  height: 160,
-                  width: 160,
-                  child: Card(
-                    color: color3,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                  padding: const EdgeInsets.all(5),
+                  child: ShakeMe(
+                    key: shakeKey3,
+                    shakeOffset: 10,
+                    shakeCount: 3,
+                    shakeDuration: const Duration(milliseconds: 500),
+                    child: SizedBox(
+                      height: size,
+                      width: size,
+                      child: Card(
+                        color: color3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        elevation: 20,
+                        child: InkWell(
+                          onTap: () {
+                            if (allowClick) {
+                              cardSelected(currentSet.choiceList[2], 3);
+                            }
+                          },
+                          child: Center(
+                              child: !currentSet.isRuneImage
+                                  ? Image.asset(
+                                      currentSet.choiceList[2].imagePath,
+                                      height: 80,
+                                      fit: BoxFit.cover)
+                                  : Text(currentSet.choiceList[2].name,
+                                      style: const TextStyle(fontSize: 28),
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center)),
+                        ),
+                      ),
                     ),
-                    elevation: 20,
-                    child: InkWell(
-                      onTap: () {
-                        if(allowClick) {
-                          cardSelected(currentSet.choiceList[2], 3);
-                        }
-                      },
-                      child: Center(
-                          child: !currentSet.isRuneImage
-                              ? Image.asset(currentSet.choiceList[2].imagePath,
-                                  height: 80, fit: BoxFit.cover)
-                              : Text(currentSet.choiceList[2].name,
-                                  style: const TextStyle(fontSize: 28),
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center)),
-                    ),
-                  ),
-                ),
-              ),
+                  )),
               Padding(
-                padding: const EdgeInsets.all(5),
-                child: SizedBox(
-                  height: 160,
-                  width: 160,
-                  child: Card(
-                    color: color4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
+                  padding: const EdgeInsets.all(5),
+                  child: ShakeMe(
+                    key: shakeKey4,
+                    shakeOffset: 10,
+                    shakeCount: 3,
+                    shakeDuration: const Duration(milliseconds: 500),
+                    child: SizedBox(
+                      height: size,
+                      width: size,
+                      child: Card(
+                        color: color4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        elevation: 20,
+                        child: InkWell(
+                          onTap: () {
+                            if (allowClick) {
+                              cardSelected(currentSet.choiceList[3], 4);
+                            }
+                          },
+                          child: Center(
+                              child: !currentSet.isRuneImage
+                                  ? Image.asset(
+                                      currentSet.choiceList[3].imagePath,
+                                      height: 80,
+                                      fit: BoxFit.cover)
+                                  : Text(currentSet.choiceList[3].name,
+                                      style: const TextStyle(fontSize: 28),
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center)),
+                        ),
+                      ),
                     ),
-                    elevation: 20,
-                    child: InkWell(
-                      onTap: () {
-                        if(allowClick) {
-                          cardSelected(currentSet.choiceList[3], 4);
-                        }
-                      },
-                      child: Center(
-                          child: !currentSet.isRuneImage
-                              ? Image.asset(currentSet.choiceList[3].imagePath,
-                                  height: 80, fit: BoxFit.cover)
-                              : Text(currentSet.choiceList[3].name,
-                                  style: const TextStyle(fontSize: 28),
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center)),
-                    ),
-                  ),
-                ),
-              ),
+                  )),
             ],
           ),
         ),

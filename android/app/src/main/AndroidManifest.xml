@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.CGR.empire_lrp_helper">
+    <uses-permission android:name="android.permission.VIBRATE" />
    <application
         android:label="Empire Larp Helper"
         android:name="${applicationName}"
