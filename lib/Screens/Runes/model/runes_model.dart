@@ -30,9 +30,10 @@ class RuneCardModel {
   String altName = "";
   String realmAffiliation = "";
   String imagePath = "";
+  String virtueAffiliation = "";
 
-  RuneCardModel(
-      this.id, this.name, this.altName, this.realmAffiliation, this.imagePath);
+  RuneCardModel(this.id, this.name, this.altName, this.realmAffiliation,
+      this.imagePath, this.virtueAffiliation);
 
   factory RuneCardModel.fromJson(dynamic json) {
     return RuneCardModel(
@@ -40,6 +41,7 @@ class RuneCardModel {
         json['name'] as String,
         json['altName'] as String,
         json['realmAffiliation'] as String,
-        json['imagePath'] as String);
+        json['imagePath'] as String,
+        json['virtueAffiliation'] as String);
   }
 }

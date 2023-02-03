@@ -5,7 +5,6 @@ import 'package:empire_lrp_helper/Screens/Runes/viewmodel/runes_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class RunesScreen extends StatefulWidget {
   const RunesScreen({Key? key}) : super(key: key);
 
@@ -24,6 +23,7 @@ class _RunesScreenState extends State<RunesScreen> {
     // TODO: implement initState
     super.initState();
     viewModel = RunesViewModel();
+    FocusManager.instance.primaryFocus?.unfocus();
     list = viewModel.getRuneCardListFromRepo();
   }
 
@@ -45,31 +45,35 @@ class _RunesScreenState extends State<RunesScreen> {
                     controller: controller,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.search),
-                        hintText: "Rune Name, alt name, or realm affiliation",
+                        hintText: "Name, alt name, virtue / realm affiliation",
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(1),
-                            borderSide: const BorderSide(color: Colors.grey))),
+                            borderSide: const BorderSide(color: Colors.grey)
+                        )
+                    ),
                     onChanged: setSearchString,
 // onChanged: searchRune,
                   ),
                 ),
                 Expanded(
                   child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: result.length,
-                      itemBuilder: (context, i) => Card(
-                            child: ListTile(
-                              title: Text(result[i].name),
-                              subtitle: Text(result[i].altName),
-                              trailing: Image.asset(result[i].imagePath,
-                                  height: 36, fit: BoxFit.cover),
-                              onTap: () {
-                                HapticFeedback.lightImpact();
-                                Navigator.of(context).push(runeDetailRoute(result[i].name));
-                              },
-                            ),
-                          ),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: result.length,
+                    itemBuilder: (context, i) => Card(
+                      child: ListTile(
+                        title: Text(result[i].name),
+                        subtitle: Text(result[i].altName),
+                        trailing: Image.asset(result[i].imagePath,
+                            height: 36, fit: BoxFit.cover),
+                        onTap: () {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          HapticFeedback.lightImpact();
+                          Navigator.of(context)
+                              .push(runeDetailRoute(result[i].name));
+                        },
+                      ),
+                    ),
                   ),
                 )
               ],
@@ -116,10 +120,19 @@ class _RunesScreenState extends State<RunesScreen> {
               .toList() ??
           <RuneCardModel>[];
 
+      List<RuneCardModel> virtueSuggestions = <RuneCardModel>[];
+      realmSuggestions = list
+          ?.where((element) => element.virtueAffiliation
+          .toLowerCase()
+          .contains(searchString!.toLowerCase()))
+          .toList() ??
+          <RuneCardModel>[];
+
       var newList = {
         ...nameSuggestions,
         ...altNameSuggestions,
-        ...realmSuggestions
+        ...realmSuggestions,
+        ...virtueSuggestions
       }.toList();
       return newList;
     }

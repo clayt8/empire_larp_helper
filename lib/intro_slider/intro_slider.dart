@@ -1,6 +1,7 @@
 import 'package:empire_lrp_helper/intro_slider/viewmodel/intro_slider_viewmodel.dart';
 import 'package:empire_lrp_helper/main_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intro_slider/intro_slider.dart';
 
 import '../main.dart';
@@ -20,7 +21,6 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     viewModel = IntroSliderViewModel();
@@ -172,241 +172,253 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
   }
 
   Widget themeButtons() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
+    return InkWell(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xff881A72),
+                        side: const BorderSide(color: Colors.white, width: 3),
+                      ),
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        themeSelected(Themes.dawn);
+                        navigateToApp();
+                      },
+                      child: const Text(
+                        'Dawn',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: const Color(0xff881A72),
                       side: const BorderSide(color: Colors.white, width: 3),
                     ),
                     onPressed: () {
-                      themeSelected(Themes.dawn);
+                      HapticFeedback.lightImpact();
+                      themeSelected(Themes.wintermark);
                       navigateToApp();
                     },
-                    child: const Text(
-                      'Dawn',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5),
+                    child: const Text('Wintermark',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xff881A72),
+                        side: const BorderSide(color: Colors.white, width: 3),
+                      ),
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        themeSelected(Themes.navarr);
+                        navigateToApp();
+                      },
+                      child: const Text(
+                        'Navarr',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xff881A72),
-                    side: const BorderSide(color: Colors.white, width: 3),
-                  ),
-                  onPressed: () {
-                    themeSelected(Themes.wintermark);
-                    navigateToApp();
-                  },
-                  child: const Text('Wintermark',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5)),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: const Color(0xff881A72),
                       side: const BorderSide(color: Colors.white, width: 3),
                     ),
                     onPressed: () {
-                      themeSelected(Themes.navarr);
+                      HapticFeedback.lightImpact();
+                      themeSelected(Themes.league);
                       navigateToApp();
                     },
-                    child: const Text(
-                      'Navarr',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5),
+                    child: const Text('League',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xff881A72),
+                        side: const BorderSide(color: Colors.white, width: 3),
+                      ),
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        themeSelected(Themes.imperialOrcs);
+                        navigateToApp();
+                      },
+                      child: const Text(
+                        'Imperial Orcs',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xff881A72),
-                    side: const BorderSide(color: Colors.white, width: 3),
-                  ),
-                  onPressed: () {
-                    themeSelected(Themes.league);
-                    navigateToApp();
-                  },
-                  child: const Text('League',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5)),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: const Color(0xff881A72),
                       side: const BorderSide(color: Colors.white, width: 3),
                     ),
                     onPressed: () {
-                      themeSelected(Themes.imperialOrcs);
+                      HapticFeedback.lightImpact();
+                      themeSelected(Themes.brassCoast);
                       navigateToApp();
                     },
-                    child: const Text(
-                      'Imperial Orcs',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5),
+                    child: const Text('Brass Coast',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xff881A72),
+                        side: const BorderSide(color: Colors.white, width: 3),
+                      ),
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        themeSelected(Themes.varushka);
+                        navigateToApp();
+                      },
+                      child: const Text(
+                        'Varushka',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xff881A72),
-                    side: const BorderSide(color: Colors.white, width: 3),
-                  ),
-                  onPressed: () {
-                    themeSelected(Themes.brassCoast);
-                    navigateToApp();
-                  },
-                  child: const Text('Brass Coast',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5)),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: const Color(0xff881A72),
                       side: const BorderSide(color: Colors.white, width: 3),
                     ),
                     onPressed: () {
-                      themeSelected(Themes.varushka);
+                      HapticFeedback.lightImpact();
+                      themeSelected(Themes.marches);
                       navigateToApp();
                     },
-                    child: const Text(
-                      'Varushka',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5),
+                    child: const Text('Marches',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(right: 8),
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xff881A72),
+                        side: const BorderSide(color: Colors.white, width: 3),
+                      ),
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        themeSelected(Themes.urizen);
+                        navigateToApp();
+                      },
+                      child: const Text(
+                        'Urizen',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xff881A72),
-                    side: const BorderSide(color: Colors.white, width: 3),
-                  ),
-                  onPressed: () {
-                    themeSelected(Themes.marches);
-                    navigateToApp();
-                  },
-                  child: const Text('Marches',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5)),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(2),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
                       backgroundColor: const Color(0xff881A72),
                       side: const BorderSide(color: Colors.white, width: 3),
                     ),
                     onPressed: () {
-                      themeSelected(Themes.urizen);
+                      HapticFeedback.lightImpact();
+                      themeSelected(Themes.highGuard);
                       navigateToApp();
                     },
-                    child: const Text(
-                      'Urizen',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5),
-                    ),
+                    child: const Text('High Guard',
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 18, height: 1.5)),
                   ),
                 ),
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xff881A72),
-                    side: const BorderSide(color: Colors.white, width: 3),
-                  ),
-                  onPressed: () {
-                    themeSelected(Themes.highGuard);
-                    navigateToApp();
-                  },
-                  child: const Text('High Guard',
-                      style: TextStyle(
-                          color: Colors.white, fontSize: 18, height: 1.5)),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -417,7 +429,7 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
     await mainViewModel.setTheme();
   }
 
-  void navigateToApp(){
+  void navigateToApp() {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (_) => const MyApp()));
   }
@@ -444,10 +456,31 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
           colorIndicator: Colors.grey[400]),
       listCustomTabs: renderListCustomTabs(),
       scrollPhysics: const BouncingScrollPhysics(),
-      onDonePress: () => Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const MainPage())),
+      onDonePress: () {
+        HapticFeedback.lightImpact();
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (_) => const MainPage()));
+      },
+      onNextPress: () {
+        HapticFeedback.lightImpact();
+      },
+      onSkipPress: () {
+        HapticFeedback.lightImpact();
+      },
     );
   }
 }
 
-enum Themes { wintermark, dawn, navarr, brassCoast, league, imperialOrcs, varushka, highGuard, urizen, marches, defaultTheme}
+enum Themes {
+  wintermark,
+  dawn,
+  navarr,
+  brassCoast,
+  league,
+  imperialOrcs,
+  varushka,
+  highGuard,
+  urizen,
+  marches,
+  defaultTheme
+}
